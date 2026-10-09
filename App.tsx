@@ -8,13 +8,13 @@ import RootNavigator from '@navigation/RootNavigator';
 import Watermark from '@components/Watermark';
 import { VARIANT, STALE_TIME_MS } from '@constants/student';
 import { COLORS } from '@constants/theme';
+import { useAuthStore } from '@stores/authStore';
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: { staleTime: STALE_TIME_MS, retry: 1 },
-  },
+  defaultOptions: { queries: { staleTime: STALE_TIME_MS, retry: 2 } },
 });
 export default function App() {
+  const token = useAuthStore(s => s.token);
   return (
     <SafeAreaProvider>
       <QueryClientProvider client={queryClient}>
@@ -24,7 +24,7 @@ export default function App() {
           <View style={styles.content}>
             <RootNavigator />
           </View>
-          {!VARIANT.watermarkAtTop && <Watermark />}
+          {!VARIANT.watermarkAtTop && !token && <Watermark />}
         </SafeAreaView>
       </QueryClientProvider>
     </SafeAreaProvider>

@@ -8,6 +8,8 @@ import { getProductById } from '@services/productApi';
 import { useCartStore } from '@stores/cartStore';
 import { STUDENT, PRICE_MULTIPLIER, STALE_TIME_MS } from '@constants/student';
 import { COLORS } from '@constants/theme';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { VARIANT } from '@constants/student';
 type Props = NativeStackScreenProps<ShopStackParams, 'Detail'>;
 export default function DetailScreen({ route }: Props) {
     const { id } = route.params;
@@ -27,6 +29,9 @@ export default function DetailScreen({ route }: Props) {
     const price = Math.round(product.price * PRICE_MULTIPLIER);
     const handleAdd = () => {
         addItem({ id: String(product.id), title: product.title, price });
+        ReactNativeHapticFeedback.trigger(
+            VARIANT.hapticOnAdd === 'impact' ? 'impactMedium' : 'selection'
+        );
         Alert.alert('KTXGo', `Đã thêm vào giỏ - MSSV: ${STUDENT.mssv}`);
     };
     return (

@@ -2,15 +2,19 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import type { Product } from '@services/productApi';
-import { PRICE_MULTIPLIER } from '@constants/student';
+import { PRICE_MULTIPLIER, VARIANT } from '@constants/student';
 import { COLORS } from '@constants/theme';
 import { useCartStore } from '@stores/cartStore';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 type Props = { product: Product; onPress: () => void };
 export default function ProductCard({ product, onPress }: Props) {
     const addItem = useCartStore(s => s.addItem);
     const price = Math.round(product.price * PRICE_MULTIPLIER);
     const handleAdd = () => {
         addItem({ id: String(product.id), title: product.title, price });
+        ReactNativeHapticFeedback.trigger(
+            VARIANT.hapticOnAdd === 'impact' ? 'impactMedium' : 'selection'
+        );
     };
     return (
         <TouchableOpacity style={styles.card} onPress={onPress}>
