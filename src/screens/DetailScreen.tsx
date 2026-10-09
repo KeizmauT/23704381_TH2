@@ -11,7 +11,7 @@ import { COLORS } from '@constants/theme';
 type Props = NativeStackScreenProps<ShopStackParams, 'Detail'>;
 export default function DetailScreen({ route }: Props) {
     const { id } = route.params;
-    const add = useCartStore(s => s.add);
+    const addItem = useCartStore(s => s.addItem);
     const { data: product, isPending, isError, refetch } = useQuery({
         queryKey: ['product', id],
         queryFn: () => getProductById(id),
@@ -26,7 +26,7 @@ export default function DetailScreen({ route }: Props) {
     );
     const price = Math.round(product.price * PRICE_MULTIPLIER);
     const handleAdd = () => {
-        add({ id: String(product.id), title: product.title, price });
+        addItem({ id: String(product.id), title: product.title, price });
         Alert.alert('KTXGo', `Đã thêm vào giỏ - MSSV: ${STUDENT.mssv}`);
     };
     return (

@@ -7,10 +7,10 @@ import { COLORS } from '@constants/theme';
 import { useCartStore } from '@stores/cartStore';
 type Props = { product: Product; onPress: () => void };
 export default function ProductCard({ product, onPress }: Props) {
-    const add = useCartStore(s => s.add);
+    const addItem = useCartStore(s => s.addItem);
     const price = Math.round(product.price * PRICE_MULTIPLIER);
     const handleAdd = () => {
-        add({ id: String(product.id), title: product.title, price });
+        addItem({ id: String(product.id), title: product.title, price });
     };
     return (
         <TouchableOpacity style={styles.card} onPress={onPress}>

@@ -10,9 +10,8 @@ export default function LoginScreen() {
     const login = useAuthStore(s => s.login);
     const isPhone = VARIANT.authField === 'phone';
     const handleLogin = () => {
-        const valid = isPhone ? /^\d{10}$/.test(value.trim()) : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
-        if (!valid) {
-            Alert.alert('KTXGo', `Vui lòng nhập ${isPhone ? 'số điện thoại 10 chữ số' : 'email'} hợp lệ`);
+        if (!value.trim()) {
+            Alert.alert('KTXGo', 'Vui lòng nhập số điện thoại');
             return;
         }
         login();

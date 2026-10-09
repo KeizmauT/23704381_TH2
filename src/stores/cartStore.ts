@@ -12,8 +12,8 @@ export type CartItem = {
 };
 type CartState = {
     items: CartItem[];
-    add: (item: Omit<CartItem, 'quantity'>) => void;
-    remove: (id: string) => void;
+    addItem: (item: Omit<CartItem, 'quantity'>) => void;
+    removeItem: (id: string) => void;
     changeQty: (id: string, quantity: number) => void;
     totalQuantity: () => number;
     totalAmount: () => number;
@@ -21,19 +21,19 @@ type CartState = {
 export const useCartStore = create<CartState>()(
     persist((set, get) => ({
         items: [],
-        add: (item) => set(s => {
-            const found = s.items.find(x => x.id === item.id);
-            return { items: found ? s.items.map(x => x.id === item.id ? { ...x, quantity: x.quantity + 1 } : x) : [...s.items, { ...item, quantity: 1 }] };
+        addItem: item => set(state => {
+            const found = state.items.find(x => x.id === item.id);
+            return { items: found ? state.items.map(x => x.id === item.id ? { ...x, quantity: x.quantity + 1 } : x) : [...state.items, { ...item, quantity: 1 }] };
         }),
-        remove: (id) => set(s => ({ items: s.items.filter(x => x.id !== id) })),
-        changeQty: (id, quantity) => set(s => ({
-            items: s.items.map(x => x.id === id ? { ...x, quantity } : x).filter(x => x.quantity > 0),
+        removeItem: id => set(state => ({ items: state.items.filter(x => x.id !== id) })),
+        changeQty: (id, quantity) => set(state => ({
+            items: state.items.map(x => x.id === id ? { ...x, quantity } : x).filter(x => x.quantity > 0),
         })),
         totalQuantity: () => get().items.reduce((sum, x) => sum + x.quantity, 0),
         totalAmount: () => get().items.reduce((sum, x) => sum + x.price * x.quantity, 0),
     }), {
         name: `ktxgo-cart-${STUDENT.mssv}`,
         storage: createJSONStorage(() => AsyncStorage),
-        partialize: s => ({ items: s.items }),
+        partialize: state => ({ items: state.items }),
     })
 );
