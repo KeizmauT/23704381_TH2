@@ -1,3 +1,13 @@
+# TRẦN TRUNG KIÊN | MSSV: 23704381 | GitHub: https://github.com/KeizmauT/23704381_TH2.git | Stamp: 340399 | Số cuối: 1 | VARIANT: Dưới - Phone - Shop trước - Selection - B - Card
+
+## TH2 - KTXGo
+Ứng dụng giao đồ tận phòng ký túc xá bằng React Native CLI và TypeScript.
+
+## Thông tin sinh viên
+- Họ tên: TRẦN TRUNG KIÊN
+- MSSV: 23704381
+- Phòng giao: P.481
+- Stamp: 340399
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
