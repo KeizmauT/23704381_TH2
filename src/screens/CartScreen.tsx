@@ -4,13 +4,14 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import { useCartStore } from '@stores/cartStore';
 import { ROOM_LABEL } from '@constants/student';
 import { COLORS } from '@constants/theme';
-
+import { useCampusLocation } from '@hooks/useCampusLocation';
 export default function CartScreen() {
     const items = useCartStore(s => s.items);
     const changeQty = useCartStore(s => s.changeQty);
     const removeItem = useCartStore(s => s.removeItem);
     const totalAmount = useCartStore(s => s.totalAmount);
     const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const { shipFee } = useCampusLocation();
     return (
         <View style={styles.container}>
             <Text style={styles.title}>GIỎ HÀNG</Text>
@@ -39,7 +40,9 @@ export default function CartScreen() {
             />
             <View style={styles.footer}>
                 <Text style={styles.text}>Giao đến {ROOM_LABEL}</Text>
-                <Text style={styles.text}>Chưa ước tính phí — mở tab Tôi</Text>
+                <Text style={styles.text}>
+                    {shipFee === null ? 'Chưa ước tính phí — mở tab Tôi' : `Phí ship: ${shipFee.toLocaleString('vi-VN')} đ`}
+                </Text>
                 <Text style={styles.total}>Tổng tiền hàng: {total.toLocaleString('vi-VN')} đ</Text>
             </View>
         </View>

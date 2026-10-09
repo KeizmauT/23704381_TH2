@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '@screens/HomeScreen';
 import DetailScreen from '@screens/DetailScreen';
 import { VARIANT } from '@constants/student';
+import { COLORS } from '@constants/theme';
 
 export type ShopStackParams = {
     Home: undefined;
@@ -17,7 +18,13 @@ export default function ShopStack() {
             <Stack.Screen
                 name="Detail"
                 component={DetailScreen}
-                options={{ presentation: VARIANT.detailPresentation === 'modal' ? 'modal' : 'card' }}
+                options={{
+                    headerShown: true,
+                    headerTitle: 'Chi tiết món',
+                    headerTintColor: COLORS.primary,
+                    headerStyle: { backgroundColor: COLORS.background },
+                    presentation: VARIANT.detailPresentation === 'modal' ? 'modal' : 'card',
+                }}
             />
         </Stack.Navigator>
     );

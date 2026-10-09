@@ -36,7 +36,6 @@ export default function DetailScreen({ route }: Props) {
     };
     return (
         <View style={styles.container}>
-            <Text style={styles.heading}>Chi tiết món</Text>
             <Image source={{ uri: product.image }} style={styles.image} resizeMode="contain" />
             <Text style={styles.name}>{product.title}</Text>
             <Text style={styles.price}>{price.toLocaleString('vi-VN')} đ</Text>
